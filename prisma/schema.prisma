@@ -14,7 +14,7 @@ model Autores {
   id             Int      @id @default(autoincrement())
   nome           String
   data_nascimento DateTime
-  biografia      String?
+  biografia      String?  @db.Text
 
   autoresLivros   AutoresLivros[]
 }
@@ -23,7 +23,7 @@ model Livros {
   id              Int      @id @default(autoincrement())
   nome            String
   data_lancamento DateTime
-  descricao       String?
+  descricao       String? @db.Text
   categoria       String?
 
   autoresLivros   AutoresLivros[]
