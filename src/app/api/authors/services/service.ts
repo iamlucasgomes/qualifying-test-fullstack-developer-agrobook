@@ -1,6 +1,5 @@
 import IAuthorData from "../interfaces/AuthorData.interace";
 import prisma from "../../database/config/prismaClient";
-import { DateTime } from 'luxon'
 
 export async function getAllAuthors() {
   const authors = await prisma.autores.findMany();
