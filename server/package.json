@@ -14,8 +14,12 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@types/node": "^20.2.5",
     "nodemon": "^2.0.22",
+    "nyc": "^15.1.0",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^5.0.4"
   },
   "dependencies": {
