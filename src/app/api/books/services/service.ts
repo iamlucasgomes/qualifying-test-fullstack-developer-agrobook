@@ -27,6 +27,29 @@ export async function createBook(bookData: BookData) {
   }
 }
 
+export async function getAllBooks() {
+  const books = await prisma.livros.findMany({
+    include: {
+      autoresLivros: {
+        select: {
+          autor: {
+            select: {
+              nome: true
+            }
+          }
+        },
+      }
+    },
+  });
+  const booksWithAuthors = books.map(book => ({
+    ...book,
+    autores: book.autoresLivros.map(relation => relation.autor.nome)
+  }));
+
+  return booksWithAuthors.map(({ autoresLivros, ...book }) => book);
+}
+
+
 async function findBookByDetails(nome: string, data_lancamento: string, categoria: string) {
   return await prisma.livros.findFirst({
     where: {

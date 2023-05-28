@@ -1,16 +1,16 @@
-import { createBook } from "./services/service";
+import { createBook, getAllBooks } from "./services/service";
 import { NextResponse } from 'next/server';
 
-// export async function GET(request: Request) {
-//   const authors = await getAllAuthors();
+export async function GET(request: Request) {
+  const books = await getAllBooks();
 
-//   return new NextResponse(JSON.stringify(authors), {
-//     status: 200,
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//   });
-// }
+  return new NextResponse(JSON.stringify(books), {
+    status: 200,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+}
 
 export async function POST(request: Request) {
   const body = await request.json();
