@@ -88,6 +88,23 @@ export async function updateBook(bookId: number, bookData: BookData) {
   }
 }
 
+export async function deleteBook(bookId: number) {
+  const existingBook = await findBookById(bookId);
+
+  if (!existingBook) {
+    return { status: 'error404', message: 'Livro não existe no banco de dados' };
+  }
+
+  try {
+    await prisma.livros.delete({
+      where: { id: bookId },
+    });
+    return { status: 'success', message: 'Livro deletado com sucesso' };
+  } catch (error: unknown) {
+    return { status: 'error', message: error };
+  }
+}
+
 async function findBookByDetails(nome: string, data_lancamento: string, categoria: string) {
   return await prisma.livros.findFirst({
     where: {

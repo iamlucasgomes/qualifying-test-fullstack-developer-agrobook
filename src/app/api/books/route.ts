@@ -1,7 +1,7 @@
-import { createBook, getAllBooks, updateBook } from "./services/service";
+import { createBook, getAllBooks, updateBook, deleteBook } from "./services/service";
 import { NextResponse } from 'next/server';
 
-export async function GET(request: Request) {
+export async function GET(_request: Request) {
   const books = await getAllBooks();
 
   return new NextResponse(JSON.stringify(books), {
@@ -90,3 +90,29 @@ export async function PATCH(request: Request) {
   });
 
 }
+
+export async function DELETE(request: Request) {
+  /* Usei o searchParams para obter o id do livro devido a um bug na rota delete do next 13.4.4, 
+  mais detalhes nessa issue https://github.com/vercel/next.js/issues/48096 */
+  const { searchParams } = new URL(request.url);
+  const _id = searchParams.get('_id') || ''
+
+  const bookDeleted = await deleteBook(Number(_id))
+  if (bookDeleted.status === 'error404') {
+    return new NextResponse(JSON.stringify({ message: bookDeleted.message }), {
+      status: 404,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+  }
+  return new NextResponse(JSON.stringify({ message: bookDeleted.message }), {
+    status: 200,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+}
+
+
