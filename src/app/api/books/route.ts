@@ -1,4 +1,4 @@
-import { createBook, getAllBooks } from "./services/service";
+import { createBook, getAllBooks, updateBook } from "./services/service";
 import { NextResponse } from 'next/server';
 
 export async function GET(request: Request) {
@@ -53,4 +53,40 @@ export async function POST(request: Request) {
       },
     });
   }
+}
+
+export async function PATCH(request: Request) {
+  const body = await request.json();
+  if (!body.id) {
+    return new NextResponse(JSON.stringify({ message: 'O livro deve ter um id' }), {
+      status: 400,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
+  if (body.autores && body.autores.length === 0) {
+    return new NextResponse(JSON.stringify({ message: 'O livro deve ter pelo menos um autor' }), {
+      status: 400,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
+  const bookUpdated = await updateBook(body.id, body)
+  if (bookUpdated.status === 'error404') {
+    return new NextResponse(JSON.stringify({ message: bookUpdated.message }), {
+      status: 404,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+  }
+  return new NextResponse(JSON.stringify(bookUpdated), {
+    status: 200,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
 }
