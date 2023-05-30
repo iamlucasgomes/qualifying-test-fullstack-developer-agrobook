@@ -8,10 +8,13 @@ import AppContext from "./Context";
 const Provider = ({ children }: Props) => {
 
   const [isAddingAuthor, setAddingAuthor] = useState(false);
+  const [isAddingBook, setIsAddingBook] = useState(false);
 
   const context: MyContextData = {
     isAddingAuthor,
     setAddingAuthor,
+    isAddingBook,
+    setIsAddingBook
   };
 
   return <AppContext.Provider value={context}>
