@@ -1,5 +1,5 @@
 import React from "react";
-import Form from "./components/Form";
+import AddBookForm from "./components/addBookForm";
 import List from "./components/List";
 import { useAppContext } from "@/hooks/useAppContext";
 
@@ -10,7 +10,7 @@ const Books: React.FC = () => {
 
   switch (isAddingBook) {
     case true:
-      content = <Form />;
+      content = <AddBookForm />;
       break;
     default:
       content = <List />
