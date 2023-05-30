@@ -12,7 +12,7 @@ import Home from '@/modules/Home/Home';
 import Authors from '@/modules/Authors/Authors';
 import Books from '@/modules/Books/Books';
 
-const { Header, Content, Sider } = Layout;
+const { Content, Sider } = Layout;
 
 type MenuItem = Required<MenuProps>['items'][number] & MenuItemType;
 
