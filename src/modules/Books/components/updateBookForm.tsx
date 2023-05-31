@@ -33,7 +33,7 @@ const App: React.FC = () => {
         ...(data_lancamento !== undefined && { data_lancamento }),
         ...(descricao !== undefined && { descricao }),
         ...(categoria !== undefined && { categoria }),
-        autores: [...(autores !== undefined && autores)],
+        ...(autores !== undefined && { autores: [autores] }),
       }
       console.log(book)
       setLoadings(true);
