@@ -60,6 +60,7 @@ const App: React.FC = () => {
                 />
               </Col>
               <Col span={24}>
+                <p><strong style={{ color: '#000000' }}>Genero: {item.categoria}</strong></p>
                 <p>Escrito por {item.autores}</p>
                 <p>{item.descricao}</p>
               </Col>
