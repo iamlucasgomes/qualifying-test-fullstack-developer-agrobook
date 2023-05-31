@@ -12,9 +12,6 @@ const App: React.FC = () => {
   const align = 'center';
 
   const loadMoreData = () => {
-    if (loading) {
-      return;
-    }
     setLoading(true);
     getAuthors()
       .then((body) => {
@@ -39,6 +36,7 @@ const App: React.FC = () => {
       <List
       pagination={{ position, align }}
         size='small'
+        loading={loading}
         dataSource={data}
         renderItem={(item) => (
           <List.Item key={item.nome}>
