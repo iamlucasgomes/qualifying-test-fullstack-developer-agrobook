@@ -35,10 +35,8 @@ const App: React.FC = () => {
         ...(categoria !== undefined && { categoria }),
         ...(autores !== undefined && { autores: [autores] }),
       }
-      console.log(book)
       setLoadings(true);
       const response = await patchBook(book);
-      console.log(response);
       if (response.status === 'success') {
         form.resetFields();
         setLoadings(false);
