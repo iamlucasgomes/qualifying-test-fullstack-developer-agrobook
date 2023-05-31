@@ -12,6 +12,7 @@ import Home from '@/modules/Home/Home';
 import Authors from '@/modules/Authors/Authors';
 import Books from '@/modules/Books/Books';
 import { useAppContext } from '@/hooks/useAppContext';
+import Loader from './components/loader';
 
 const { Content, Sider } = Layout;
 
@@ -41,10 +42,15 @@ const App: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [page, setPage] = useState<React.ReactNode>('Home');
   const [breadcrumbItems, setBreadcrumbItems] = useState<React.ReactNode[]>(['Home', '']);
-  const {setAddingAuthor, setIsAddingBook} = useAppContext();
+  const [loading, setLoading] = useState(true);
+  const { setAddingAuthor, setIsAddingBook } = useAppContext();
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+
+  const handleLoad = () => {
+    setLoading(false);
+  };
 
   const handleMenuItemSelect = ({ keyPath }: { keyPath: React.Key[] }) => {
     const selectedKey = keyPath[keyPath.length - 1];
@@ -63,7 +69,7 @@ const App: React.FC = () => {
       setIsAddingBook(false);
       content = <Authors />;
       break;
-      case 'Livros':
+    case 'Livros':
       setAddingAuthor(false);
       content = <Books />;
       break;
@@ -74,7 +80,7 @@ const App: React.FC = () => {
   }
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
+    <Layout onLoad={handleLoad} style={{ minHeight: '100vh' }}>
       <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
         <div className="demo-logo-vertical" />
         <Menu
