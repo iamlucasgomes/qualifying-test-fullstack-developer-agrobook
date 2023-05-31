@@ -29,18 +29,18 @@ const App: React.FC = () => {
       const { nome, data_lancamento, descricao, categoria, autores } = values;
       const book: updateBooks = {
         id: selectedBook,
-        nome,
-        data_lancamento,
-        descricao,
-        categoria,
-        autores: [autores],
+        ...(nome !== undefined && { nome }),
+        ...(data_lancamento !== undefined && { data_lancamento }),
+        ...(descricao !== undefined && { descricao }),
+        ...(categoria !== undefined && { categoria }),
+        autores: [...(autores !== undefined && autores)],
       }
       console.log(book)
-      form.resetFields();
       setLoadings(true);
       const response = await patchBook(book);
       console.log(response);
       if (response.status === 'success') {
+        form.resetFields();
         setLoadings(false);
         setIsAddingBook(false);
       }
