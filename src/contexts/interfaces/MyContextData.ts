@@ -7,4 +7,6 @@ export default interface MyContextData {
   setIsAddingBook: React.Dispatch<React.SetStateAction<boolean>>;
   isUpdatingBook: boolean;
   setIsUpdatingBook: React.Dispatch<React.SetStateAction<boolean>>;
+  selectedBook: number;
+  setSelectedBook: React.Dispatch<React.SetStateAction<number>>;
 }
