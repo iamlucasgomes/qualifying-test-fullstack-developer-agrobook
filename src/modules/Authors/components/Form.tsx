@@ -38,13 +38,13 @@ const App: React.FC = () => {
         style={{ maxWidth: 800 }}
         labelAlign="left"
       >
-        <Form.Item label="Nome" name="nome">
+        <Form.Item rules={[{ required: true, message: 'Por Favor, Preencha o nome do Autor' }]} label="Nome" name="nome">
           <Input />
         </Form.Item>
-        <Form.Item label="Data de Nascimento" name="data_nascimento">
+        <Form.Item rules={[{ required: true, message: 'Por Favor, Selecione a Data de Nascimento do Autor' }]} label="Data de Nascimento" name="data_nascimento">
           <DatePicker placeholder="Selecione a Data" />
         </Form.Item>
-        <Form.Item label="Biografia" name="biografia">
+        <Form.Item rules={[{ required: true, message: 'Por Favor, Preencha a Biografia do Autor' }]} label="Biografia" name="biografia">
           <TextArea rows={4} />
         </Form.Item>
         <Button type="primary" loading={loadings} onClick={enterLoading}>
