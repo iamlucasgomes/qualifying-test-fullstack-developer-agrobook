@@ -28,6 +28,7 @@ const App: React.FC = () => {
     form.validateFields().then(async (values) => {
       const { nome, data_lancamento, descricao, categoria, autores } = values;
       const book: updateBooks = {
+        id: selectedBook,
         nome,
         data_lancamento,
         descricao,
@@ -36,7 +37,7 @@ const App: React.FC = () => {
       }
       form.resetFields();
       setLoadings(true);
-      const response = await patchBook(selectedBook, book);
+      const response = await patchBook(book);
       console.log(response);
       if (response.status === 'success') {
         setLoadings(false);
