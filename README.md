@@ -9,7 +9,8 @@ conseguir gerenciar livros e autores.
 ![Prisma](https://img.shields.io/badge/Prisma-2D3748.svg?&style=for-the-badge&logo=prisma&logoColor=white)
 ![AntDesign](https://img.shields.io/badge/AntDesign-0170FE.svg?&style=for-the-badge&logo=antdesign&logoColor=white)
 ## 📋 Pré-requisitos:
-- Node 18.16
+- Node 18.16 ou Superior
+- Prisma 4.14 ou Superior
 # 🛠️ Como Utilizar:
 1. Clone o repositório para sua máquina utilizando o comando:
 	`git clone git@github.com:iamlucasgomes/qualifying-test-fullstack-developer-agrobook.git`
