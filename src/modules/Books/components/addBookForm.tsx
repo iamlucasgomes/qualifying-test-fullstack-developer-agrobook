@@ -70,7 +70,7 @@ const App: React.FC = () => {
         <Form.Item rules={[{ required: true, message: 'Por Favor, Insira uma breve descrição do Livro' }]} label="Descrição" name="descricao">
           <TextArea rows={4} />
         </Form.Item>
-        <Form.Item rules={[{ required: true, message: 'Por Favor, Preencha a categoria do Livro' }]} label="Categoria" name="categoria">
+        <Form.Item rules={[{ required: true, message: 'Por Favor, Preencha a categoria do Livro' }]} label="Genero" name="categoria">
           <Input required />
         </Form.Item>
         <Form.Item rules={[{ required: true, message: 'Por Favor, Escolha o autor do Livro' }]} label="Autor" name="autores">
