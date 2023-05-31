@@ -17,7 +17,7 @@ export const deleteBook = async (id: number) => {
   return response.data;
 }
 
-export const patchBook = async (id: number, book: updateBooks) => {
+export const patchBook = async (book: updateBooks) => {
   const response = await axios.patch(`/api/books`, book);
   return response.data;
 }
