@@ -37,6 +37,7 @@ const App: React.FC = () => {
       form.resetFields();
       setLoadings(true);
       const response = await patchBook(selectedBook, book);
+      console.log(response);
       if (response.status === 'success') {
         setLoadings(false);
         setIsAddingBook(false);
