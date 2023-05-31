@@ -6,7 +6,7 @@ const { Title } = Typography;
 const Home: React.FC = () => {
   return (
     <div>
-      <Title style={{color: '#1677FF'}}>Bem vindo a Livraria</Title>
+      <Title style={{color: '#002140'}}>Bem vindo</Title>
     </div>
   );
 };
