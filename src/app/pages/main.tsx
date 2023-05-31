@@ -60,17 +60,17 @@ const App: React.FC = () => {
 
   switch (page) {
     case 'Autores':
-      setAddingAuthor(false);
+      setIsAddingBook(false);
       content = <Authors />;
       break;
-    case 'Livros':
-      setIsAddingBook(false);
+      case 'Livros':
+      setAddingAuthor(false);
       content = <Books />;
       break;
     default:
+      content = <Home />;
       setAddingAuthor(false);
       setIsAddingBook(false);
-      content = <Home />;
   }
 
   return (
