@@ -5,14 +5,13 @@ import {
   UserOutlined,
   BookOutlined,
 } from '@ant-design/icons';
-import type { MenuProps } from 'antd';
+import { MenuProps, Spin } from 'antd';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import { MenuItemType } from 'antd/es/menu/hooks/useItems';
 import Home from '@/modules/Home/Home';
 import Authors from '@/modules/Authors/Authors';
 import Books from '@/modules/Books/Books';
 import { useAppContext } from '@/hooks/useAppContext';
-import Loader from './components/loader';
 
 const { Content, Sider } = Layout;
 
@@ -48,17 +47,14 @@ const App: React.FC = () => {
     token: { colorBgContainer },
   } = theme.useToken();
 
+  const handleLoad = () => {
+    setLoading(false);
+  };
+
   useEffect(() => {
-    const handleLoad = () => {
-      setLoading(false);
-    };
-
-    window.addEventListener('load', handleLoad);
-
-    return () => {
-      window.removeEventListener('load', handleLoad);
-    };
+    handleLoad();
   }, []);
+
   const handleMenuItemSelect = ({ keyPath }: { keyPath: React.Key[] }) => {
     const selectedKey = keyPath[keyPath.length - 1];
     const selectedMenuItem = items.find((item) => item?.key === selectedKey);
@@ -87,30 +83,32 @@ const App: React.FC = () => {
   }
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-        <div className="demo-logo-vertical" />
-        <Menu
-          theme="dark"
-          defaultSelectedKeys={['1']}
-          mode="inline"
-          items={items}
-          onSelect={handleMenuItemSelect}
-        />
-      </Sider>
-      <Layout>
-        <Content style={{ margin: '0 16px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            {breadcrumbItems.map((item, index) => (
-              <Breadcrumb.Item key={index}>{item}</Breadcrumb.Item>
-            ))}
-          </Breadcrumb>
-          <div style={{ padding: 24, minHeight: 360, color: 'GrayText', background: colorBgContainer }}>
-            {content}
-          </div>
-        </Content>
+    <Spin spinning={loading} size="large">
+      <Layout style={{ minHeight: '100vh' }}>
+        <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+          <div className="demo-logo-vertical" />
+          <Menu
+            theme="dark"
+            defaultSelectedKeys={['1']}
+            mode="inline"
+            items={items}
+            onSelect={handleMenuItemSelect}
+          />
+        </Sider>
+        <Layout>
+          <Content style={{ margin: '0 16px' }}>
+            <Breadcrumb style={{ margin: '16px 0' }}>
+              {breadcrumbItems.map((item, index) => (
+                <Breadcrumb.Item key={index}>{item}</Breadcrumb.Item>
+              ))}
+            </Breadcrumb>
+            <div style={{ padding: 24, minHeight: 360, color: 'GrayText', background: colorBgContainer }}>
+              {content}
+            </div>
+          </Content>
+        </Layout>
       </Layout>
-    </Layout>
+    </Spin>
   );
 };
 
