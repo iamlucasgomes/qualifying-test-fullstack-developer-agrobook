@@ -10,7 +10,7 @@ const App: React.FC = () => {
   const [form] = Form.useForm();
   const [loadings, setLoadings] = useState(false);
   const [authors, setAuthors] = useState([]);
-  const { selectedBook, setIsAddingBook, setIsUpdatingBook } = useAppContext();
+  const { selectedBook, setIsUpdatingBook } = useAppContext();
 
   useEffect(() => {
     getAuthors().then((response) => {
@@ -40,7 +40,7 @@ const App: React.FC = () => {
       if (response.status === 'success') {
         form.resetFields();
         setLoadings(false);
-        setIsAddingBook(false);
+        setIsUpdatingBook(false);
       }
       setLoadings(false);
     });
