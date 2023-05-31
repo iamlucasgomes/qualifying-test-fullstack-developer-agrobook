@@ -5,12 +5,10 @@ import { BookOutlined, DeleteTwoTone, EditTwoTone } from '@ant-design/icons';
 import Books from '../interfaces/Books';
 import { deleteBook, getBooks } from '../services/services';
 import { useAppContext } from '@/hooks/useAppContext';
-import { FilterValue } from 'antd/es/table/interface';
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<Books[]>([]);
-  const [filteredInfo, setFilteredInfo] = useState<Record<string, FilterValue | null>>({});
   const [authorFilter, setAuthorFilter] = useState<string>('');
   const { setIsUpdatingBook, setSelectedBook } = useAppContext();
   const position = 'bottom';
