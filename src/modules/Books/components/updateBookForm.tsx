@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Button, DatePicker, Form, Input, Select } from 'antd';
 import { useAppContext } from '@/hooks/useAppContext';
 import { CloseOutlined } from '@ant-design/icons';
-import { postBook } from '../services/services';
-import Books from '../interfaces/Books';
+import { patchBook } from '../services/services';
 import { getAuthors } from '@/modules/Authors/services/services';
+import updateBooks from '../interfaces/updateBooks';
 
 const App: React.FC = () => {
   const [form] = Form.useForm();
   const [loadings, setLoadings] = useState(false);
   const [authors, setAuthors] = useState([]);
-  const { setIsAddingBook } = useAppContext();
+  const { selectedBook, setIsUpdatingBook } = useAppContext();
 
   useEffect(() => {
     getAuthors().then((response) => {
@@ -27,19 +27,20 @@ const App: React.FC = () => {
   const enterLoading = () => {
     form.validateFields().then(async (values) => {
       const { nome, data_lancamento, descricao, categoria, autores } = values;
-      const book: Books = {
-        nome,
-        data_lancamento,
-        descricao,
-        categoria,
-        autores: [autores],
+      const book: updateBooks = {
+        id: selectedBook,
+        ...(nome !== undefined && { nome }),
+        ...(data_lancamento !== undefined && { data_lancamento }),
+        ...(descricao !== undefined && { descricao }),
+        ...(categoria !== undefined && { categoria }),
+        ...(autores !== undefined && { autores: [autores] }),
       }
-      form.resetFields();
       setLoadings(true);
-      const response = await postBook(book);
+      const response = await patchBook(book);
       if (response.status === 'success') {
+        form.resetFields();
         setLoadings(false);
-        setIsAddingBook(false);
+        setIsUpdatingBook(false);
       }
       setLoadings(false);
     });
@@ -50,7 +51,7 @@ const App: React.FC = () => {
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <a onClick={() => setIsAddingBook(false)}><CloseOutlined /></a>
+        <a onClick={() => setIsUpdatingBook(false)}><CloseOutlined /></a>
       </div>
       <Form
         form={form}
@@ -58,26 +59,26 @@ const App: React.FC = () => {
         wrapperCol={{ span: 14 }}
         layout="horizontal"
         size="small"
-        style={{ maxWidth: 900 }}
+        style={{ maxWidth: 800 }}
         labelAlign="left"
       >
-        <Form.Item rules={[{ required: true, message: 'Por Favor, Preencha o nome do Livro' }]} label="Nome" name="nome">
+        <Form.Item label="Nome" name="nome">
           <Input />
         </Form.Item>
-        <Form.Item rules={[{ required: true, message: 'Por Favor, Escolha a data de lançamento do Livro' }]} label="Data de Lançamento" name="data_lancamento">
+        <Form.Item label="Data de Lançamento" name="data_lancamento">
           <DatePicker placeholder="Selecione a Data" />
         </Form.Item>
-        <Form.Item rules={[{ required: true, message: 'Por Favor, Insira uma breve descrição do Livro' }]} label="Descrição" name="descricao">
+        <Form.Item label="Descrição" name="descricao">
           <TextArea rows={4} />
         </Form.Item>
-        <Form.Item rules={[{ required: true, message: 'Por Favor, Preencha a categoria do Livro' }]} label="Genero" name="categoria">
+        <Form.Item label="Genero" name="categoria">
           <Input required />
         </Form.Item>
-        <Form.Item rules={[{ required: true, message: 'Por Favor, Escolha o autor do Livro' }]} label="Autor" name="autores">
+        <Form.Item label="Autor" name="autores">
           <Select options={authors} />
         </Form.Item>
         <Button type="primary" loading={loadings} onClick={enterLoading}>
-          Cadastrar
+          Atualizar
         </Button>
       </Form>
     </div >

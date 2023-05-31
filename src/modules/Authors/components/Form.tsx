@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, DatePicker, Form, Input } from 'antd';
 import { postAuthor } from '../services/services';
 import { useAppContext } from '@/hooks/useAppContext';
+import { CloseOutlined } from '@ant-design/icons';
 
 const App: React.FC = () => {
   const [form] = Form.useForm();
@@ -24,6 +25,10 @@ const App: React.FC = () => {
   const { TextArea } = Input;
 
   return (
+    <div>
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <a onClick={() => setAddingAuthor(false)}><CloseOutlined /></a>
+      </div>
       <Form
         form={form}
         labelCol={{ span: 4 }}
@@ -46,6 +51,7 @@ const App: React.FC = () => {
           Cadastrar
         </Button>
       </Form>
+    </div>
   );
 };
 

@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   HomeOutlined,
   UserOutlined,
@@ -11,6 +11,8 @@ import { MenuItemType } from 'antd/es/menu/hooks/useItems';
 import Home from '@/modules/Home/Home';
 import Authors from '@/modules/Authors/Authors';
 import Books from '@/modules/Books/Books';
+import { useAppContext } from '@/hooks/useAppContext';
+import Loader from './components/loader';
 
 const { Content, Sider } = Layout;
 
@@ -40,10 +42,23 @@ const App: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [page, setPage] = useState<React.ReactNode>('Home');
   const [breadcrumbItems, setBreadcrumbItems] = useState<React.ReactNode[]>(['Home', '']);
+  const [loading, setLoading] = useState(true);
+  const { setAddingAuthor, setIsAddingBook } = useAppContext();
   const {
     token: { colorBgContainer },
   } = theme.useToken();
 
+  useEffect(() => {
+    const handleLoad = () => {
+      setLoading(false);
+    };
+
+    window.addEventListener('load', handleLoad);
+
+    return () => {
+      window.removeEventListener('load', handleLoad);
+    };
+  }, []);
   const handleMenuItemSelect = ({ keyPath }: { keyPath: React.Key[] }) => {
     const selectedKey = keyPath[keyPath.length - 1];
     const selectedMenuItem = items.find((item) => item?.key === selectedKey);
@@ -58,13 +73,17 @@ const App: React.FC = () => {
 
   switch (page) {
     case 'Autores':
+      setIsAddingBook(false);
       content = <Authors />;
       break;
     case 'Livros':
+      setAddingAuthor(false);
       content = <Books />;
       break;
     default:
       content = <Home />;
+      setAddingAuthor(false);
+      setIsAddingBook(false);
   }
 
   return (

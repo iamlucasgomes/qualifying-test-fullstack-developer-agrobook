@@ -1,21 +1,22 @@
 import React from "react";
 import AddBookForm from "./components/addBookForm";
+import UpdateBookForm from "./components/updateBookForm";
 import List from "./components/List";
 import { useAppContext } from "@/hooks/useAppContext";
 
 const Books: React.FC = () => {
   let content: React.ReactNode;
 
-  const { isAddingBook } = useAppContext();
+  const { isAddingBook, isUpdatingBook } = useAppContext();
 
-  switch (isAddingBook) {
-    case true:
-      content = <AddBookForm />;
-      break;
-    default:
-      content = <List />
-      break;
-  }
+  if (isAddingBook) {
+    content = <AddBookForm />;
+  } else if (isUpdatingBook) {
+    content = <UpdateBookForm />;
+  } else {
+    content = <List />
+  };
+
   return (
     <div>
       {content}
