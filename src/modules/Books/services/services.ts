@@ -11,7 +11,7 @@ export const postBook = async (book: Books) => {
   return response.data;
 }
 
-export const deleteBook = async (id: string) => {
+export const deleteBook = async (id: number) => {
   const response = await axios.delete(`/api/books/${id}`);
   return response.data;
 }
