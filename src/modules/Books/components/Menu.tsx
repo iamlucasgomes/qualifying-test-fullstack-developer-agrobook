@@ -5,7 +5,7 @@ import { useAppContext } from '@/hooks/useAppContext';
 
 const App: React.FC = () => {
   const { setIsAddingBook } = useAppContext();
-  const onMenuClick = () => console.log(setIsAddingBook(true));
+  const onMenuClick = () => setIsAddingBook(true);
 
   return (
     <Space direction="horizontal">
