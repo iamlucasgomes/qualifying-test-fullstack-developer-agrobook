@@ -1,5 +1,5 @@
 # 📚 Desafio Agrobook
-# 🎯
+# 🎯 Objetivo:
 Deve ser desenvolvido um sistema para uma livraria, neste sistema o usuário deve
 conseguir gerenciar livros e autores.
 # 🖥️ Tecnologias utilizadas:
