@@ -10,7 +10,7 @@ const App: React.FC = () => {
   const [form] = Form.useForm();
   const [loadings, setLoadings] = useState(false);
   const [authors, setAuthors] = useState([]);
-  const { setIsAddingBook, selectedBook } = useAppContext();
+  const { selectedBook, setIsAddingBook, setIsUpdatingBook } = useAppContext();
 
   useEffect(() => {
     getAuthors().then((response) => {
@@ -50,7 +50,7 @@ const App: React.FC = () => {
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <a onClick={() => setIsAddingBook(false)}><CloseOutlined /></a>
+        <a onClick={() => setIsUpdatingBook(false)}><CloseOutlined /></a>
       </div>
       <Form
         form={form}
