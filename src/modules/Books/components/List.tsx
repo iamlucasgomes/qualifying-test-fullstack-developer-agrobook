@@ -49,6 +49,7 @@ const App: React.FC = () => {
       <List
         pagination={{ position, align }}
         size='small'
+        loading={loading}
         dataSource={data}
         renderItem={(item) => (
           <List.Item
