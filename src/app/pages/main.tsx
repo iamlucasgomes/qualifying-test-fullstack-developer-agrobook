@@ -11,6 +11,7 @@ import { MenuItemType } from 'antd/es/menu/hooks/useItems';
 import Home from '@/modules/Home/Home';
 import Authors from '@/modules/Authors/Authors';
 import Books from '@/modules/Books/Books';
+import { useAppContext } from '@/hooks/useAppContext';
 
 const { Content, Sider } = Layout;
 
@@ -40,6 +41,7 @@ const App: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [page, setPage] = useState<React.ReactNode>('Home');
   const [breadcrumbItems, setBreadcrumbItems] = useState<React.ReactNode[]>(['Home', '']);
+  const {setAddingAuthor, setIsAddingBook} = useAppContext();
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -58,12 +60,16 @@ const App: React.FC = () => {
 
   switch (page) {
     case 'Autores':
+      setAddingAuthor(false);
       content = <Authors />;
       break;
     case 'Livros':
+      setIsAddingBook(false);
       content = <Books />;
       break;
     default:
+      setAddingAuthor(false);
+      setIsAddingBook(false);
       content = <Home />;
   }
 
