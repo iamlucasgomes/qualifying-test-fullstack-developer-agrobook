@@ -1,9 +1,12 @@
 import React from "react";
+import { Typography } from 'antd';
+
+const { Title } = Typography;
 
 const Home: React.FC = () => {
   return (
     <div>
-      <p>Bem vindo a Livraria</p>
+      <Title style={{color: '#002140'}}>Bem vindo</Title>
     </div>
   );
 };
