@@ -35,6 +35,7 @@ const App: React.FC = () => {
         categoria,
         autores: [autores],
       }
+      console.log(book)
       form.resetFields();
       setLoadings(true);
       const response = await patchBook(book);
