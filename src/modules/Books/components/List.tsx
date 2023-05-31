@@ -9,7 +9,7 @@ import { useAppContext } from '@/hooks/useAppContext';
 const App: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<Books[]>([]);
-  const { setIsUpdatingBook } = useAppContext();
+  const { setIsUpdatingBook, setSelectedBook } = useAppContext();
   const position = 'bottom';
   const align = 'center';
 
@@ -36,7 +36,10 @@ const App: React.FC = () => {
     )
   };
 
-  const onUpdateClick = () => setIsUpdatingBook(true);
+  const onUpdateClick = (id: number) => {
+    setIsUpdatingBook(true);
+    setSelectedBook(id);
+  }
 
   return (
     <div>
@@ -50,7 +53,8 @@ const App: React.FC = () => {
         renderItem={(item) => (
           <List.Item
             key={item.nome}
-            actions={[<a key={`${item.nome}-edit`} onClick={onUpdateClick}><EditTwoTone /></a>, <a key={`${item.nome}-delete`} onClick={() => removeBook(Number(item.id))}><DeleteTwoTone twoToneColor="#FF0000" /></a>]}
+            actions={[<a key={`${item.nome}-edit`} onClick={() => onUpdateClick(Number(item.id))}><EditTwoTone /></a>, 
+            <a key={`${item.nome}-delete`} onClick={() => removeBook(Number(item.id))}><DeleteTwoTone twoToneColor="#FF0000" /></a>]}
           >
             <Row>
               <Col span={24}>
