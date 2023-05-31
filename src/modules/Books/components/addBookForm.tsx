@@ -58,7 +58,7 @@ const App: React.FC = () => {
         wrapperCol={{ span: 14 }}
         layout="horizontal"
         size="small"
-        style={{ maxWidth: 800 }}
+        style={{ maxWidth: 900 }}
         labelAlign="left"
       >
         <Form.Item rules={[{ required: true, message: 'Por Favor, Preencha o nome do Livro' }]} label="Nome" name="nome">
